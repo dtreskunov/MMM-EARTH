@@ -13,3 +13,8 @@ You must copy this to your custom.css file first and make your changes there.
   margin-bottom: 0px;       /* Precisely align EARTH image with these */
   float: center;               /* Left, center or right */
 }
+
+.MMM-EARTH .photo img {
+  clip-path: circle(37% at center); /* Clip image so that corners don't obstruct other content */
+  margin: -20% -100%;               /* Make sure image is centered */
+}
