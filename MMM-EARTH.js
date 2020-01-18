@@ -77,7 +77,6 @@ Module.register("MMM-EARTH", {
             wrapper.appendChild(header);
         }
 
-        const earthPhoto = document.createElement("div");
         const earthKeys = Object.keys(this.earth);
         if (earthKeys.length > 0) {
             if (this.activeItem >= earthKeys.length) {
@@ -92,21 +91,29 @@ Module.register("MMM-EARTH", {
             //      var daily = parts[2]+"/"+this.config.MonthsArray[parts[1]]+"/"+parts[0]; // NASA changed data/date format
             const daily = parts[0] + "/" + parts[1] + "/" + parts[2]; // NASA changed data/date format AGAIN!
 
-                earthPhoto.classList.add("photo");
-            if (this.config.mode == "Natural") {
-                earthPhoto.innerHTML = '<img src="https://epic.gsfc.nasa.gov/archive/natural/' + daily + '/jpg/' + earthImg + '.jpg"  width="' + this.config.MaxWidth + '" height="' + this.config.MaxHeight + '">';
-            } else if (this.config.mode == "Enhanced") {
-                earthPhoto.innerHTML = '<img src="https://epic.gsfc.nasa.gov/archive/enhanced/' + daily + '/jpg/' + earthImg + '.jpg"  width="' + this.config.MaxWidth + '" height="' + this.config.MaxHeight + '">';
-            } else if (this.config.mode == "Lunar") {
-                earthPhoto.innerHTML = '<img src="https://epic.gsfc.nasa.gov/archive/natural/2016/07/05/jpg/' + earthImg + '.jpg"  width="' + this.config.MaxWidth + '" height="' + this.config.MaxHeight + '">';
-            } else if (this.config.mode == "naturalThumb") {
-                earthPhoto.innerHTML = '<img src="https://epic.gsfc.nasa.gov/archive/natural/' + daily + '/thumbs/' + earthImg + '.jpg"  width="' + this.config.MaxWidth + '" height="' + this.config.MaxHeight + '">';
-            } else if (this.config.mode == "enhancedThumb") {
-                earthPhoto.innerHTML = '<img src="https://epic.gsfc.nasa.gov/archive/enhanced/' + daily + '/thumbs/' + earthImg + '.jpg"  width="' + this.config.MaxWidth + '" height="' + this.config.MaxHeight + '">';
+            function getImageSrc(mode, daily, earthImg) {
+                const baseUrl = 'https://epic.gsfc.nasa.gov/archive/';
+                if (mode == "Natural") {
+                    return baseUrl + 'natural/' + daily + '/jpg/' + earthImg + '.jpg';
+                } else if (mode == "Enhanced") {
+                    return baseUrl + 'enhanced/' + daily + '/jpg/' + earthImg + '.jpg';
+                } else if (mode == "Lunar") {
+                    return baseUrl + 'natural/2016/07/05/jpg/' + earthImg + '.jpg';
+                } else if (mode == "naturalThumb") {
+                    return baseUrl + 'natural/' + daily + '/thumbs/' + earthImg + '.jpg';
+                } else if (mode == "enhancedThumb") {
+                    return baseUrl + 'enhanced/' + daily + '/thumbs/' + earthImg + '.jpg';
+                }
             }
-
+            const earthPhoto = document.createElement("div");
+            earthPhoto.classList.add("photo");
+            const img = document.createElement('img');
+            img.src = getImageSrc(this.config.mode, daily, earthImg);
+            img.style.width = this.config.MaxWidth;
+            img.style.height = this.config.MaxHeight;
+            earthPhoto.appendChild(img);
+            wrapper.appendChild(earthPhoto);
         }
-        wrapper.appendChild(earthPhoto);
         return wrapper;
     },
 
