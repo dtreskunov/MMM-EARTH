@@ -45,6 +45,35 @@ NASA's Earth Polychromatic Imaging Camera (EPIC), aboard NOAA's DSCOVR satellite
         }
     },
 
+If desired, the image can be used in the background (as the "wallpaper"):
+
+```javascript
+// in config.js
+{
+    module: "MMM-EARTH",
+    position: "fullscreen_below",
+    config: {
+            mode: "Natural", // Natural, Enhanced, Lunar, naturalThumb, enhancedThumb
+            rotateInterval: 30*60*1000, // Every 30 minutes = 48. DO NOT exceed 50 per day.
+            MaxWidth: "initial",
+            MaxHeight: "initial",
+    }
+},
+```
+```css
+/* in css/custom.css */
+.MMM-EARTH .photo img {
+    position: absolute;
+    bottom: 0;
+}
+.module {
+    background-color:rgba(0,0,0,0.3)
+}
+body {
+    color: #eee;
+}
+```
+
 ## Config Options
 
 | **Option** | **Default** | **Description** |
